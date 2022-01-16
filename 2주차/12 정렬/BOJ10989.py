@@ -1,27 +1,20 @@
 ## 수 정렬하기 3 ##
 '''
-난이도 : 하
-사용 : 카운팅 정렬(도수 정렬)
-도수 정렬 코드 그대로 썼다.
-개념이 조금 복잡하지마 이해하면 간단한 듯 하다.
+난이도 : 상
+사용 : 카운팅 응용
+
+카운팅 정렬을 사용한다고 해서 너무 그것에 얽매여서 코드가 복잡해졌었다.
+다른 분이 푸신 코드를 보니 쉽게 해결할 수 있는 걸 너무 정렬의 예제 코드에 얽매여있었다는 것을 알았다.
+조금 더 유연한 사고를 가져야겠다.
+
+근데 채점 넘 느려서 이거 다 썼는데 아직 안된다.. 일단 커밋
 '''
 n = int(input())
-x = [None] * n
-min, max = 10000000, 0
-for i in range(n):
-    x[i] = int(input())
-    if x[i] < min:
-        min = x[i]
-    elif x[i] > max:
-        max = x[i]
-
-f = [0] * (max + 1) # 누적 도수분포표 배열
-b = [0] * n         #작업용 배열
-
-for i in range(n):              f[x[i]] += 1
-for i in range(1, max + 1):     f[i] += f[i - 1]
-for i in range(n-1, -1, -1):    f[x[i]] -= 1; b[f[x[i]]] = x[i]
-for i in range(n):              x[i] = b[i]
+f = [0] * 10001
 
 for i in range(n):
-    print(x[i])
+    f[int(input())] += 1
+
+for i in range(1, 10000 + 1):
+    for j in range(f[i]):
+        print(i)
