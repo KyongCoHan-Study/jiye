@@ -9,12 +9,13 @@
 
 근데 채점 넘 느려서 이거 다 썼는데 아직 안된다.. 일단 커밋
 '''
-n = int(input())
+import sys
+
 f = [0] * 10001
 
-for i in range(n):
-    f[int(input())] += 1
+for i in range(int(input())):
+    f[int(sys.stdin.readline())] += 1
 
-for i in range(1, 10000 + 1):
+for i in range(10001):
     for j in range(f[i]):
         print(i)
