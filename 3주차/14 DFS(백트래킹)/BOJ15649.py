@@ -1,54 +1,68 @@
 ## N과 M (1) ##
 
-def makingTree(i, n, m):
-    """
-    :param i: root의 수
-    :param n: 자연수의 범위
-    :param m: 트리의 깊이 (여기서는 원소의 개수와 같음)
-    :return: 조건의 맞는 tree의 list
-    """
-    treeVisit = []
-    treeNum = [[]] * m
-
-    for i in range(m):  # m:깊이
-        if i == 0:
-            treeVisit.append([0])
-            treeNum[i].append(i)
-        else:
-            treeVisit.append([0] * (n - i))
-            for j in range(n):
-                if j not in treeNum[i - 1]:
-                    treeNum[i].append(j)
-
-    # 중간 확인용 출력
-    for i in range(m):
-        print(treeNum[i])
-
-
-def dfs(m, n, nodes):
+def makingGraph(n, m):
     '''
-    :param nodes: 노드들
-    :param m: 현재 숫자
-    :param n: 앞으로 방문해야하는 노드 개수
-    :return: 방문 노드 개수가 0개일 시 true리턴과 수 출력
+    문제 조건에 맞는 그래프를 만듭니다
+    :param n: 문제에서 주어진 자연수 n
+    :param m: 깊이 m
+    :return: 인접 리스트 표현법으로 나타낸 그래프
+    여기서 m은 사용하지 않으며,
+    각 노드와 노드 사이에 간선이 모두 있는 그래프를 만듬.
+    인덱스 0은 무시합니다.
     '''
-    if n == 0:
-        print(m, end=' ')
-        return True  # 노드 방문을 끝낸 경우
-    # 현재 노드를 아직 방문하지 않았다면
-    if nodes[m][m] == 0:
-        nodes[m][m] = 1  # 노드 방문 처리
-        # 나머지 노드도 재귀적으로 호출
-        for j in range(m):
-            if nodes[i][j] == 0:
-                dfs(j, n - 1, nodes)
-            else:
-                continue
+    graph = [[i for i in range(n + 1)] for i in range(m + 1)]
+    graphVisitTime = [[None, None] for i in range(n + 1)]
+    for i in range(len(graph)):
+        graph[i].remove(i)
+
+    return graph, graphVisitTime
+
+
+def dfs(g, v):
+    '''
+    dsf
+    :param g: graph의 리스트
+    :param v: visit time의 리스트,
+                [0][1]이 모두 None이라면 White
+                [0]의 값이 있다면 Gray
+                [1]의 값이 있다면 black
+    :return: None
+    '''
+    for i in range(len(v)):
+        if i == 0 or not i[0]:
+            dfsVisit(g[i], v, i)
+
+
+time = 0
+
+
+def dfsVisit(g, v, i):
+    '''
+    dfs 탐색을 합니다.
+    :param g: graph의 리스트
+    :param v: visit time의 리스트,
+                [0][1]이 모두 None이라면 White
+                [0]의 값이 있다면 Gray
+                [1]의 값이 있다면 black
+    :param i: 현재 정점의 값
+    :return: None
+    '''
+    global time
+    global m
+
+    time += 1
+    v[i][0] = time
+    for b in g:  # 간선 (a, b)를 탐색한다
+        if v[i][0] == None:
+            pi = i
+            dfsVisit(g, v, b)
+        print(i, b)
+    time += 1
+    v[i][1] = time
+    if v[i][0] - v[i][1] >= m:
+        return None
 
 
 n, m = map(int, input().split())
-
-
-for i in range(n):
-    makingTree(i, n, m)
-
+g, v = makingGraph(n, m)
+dfs(g, v)
