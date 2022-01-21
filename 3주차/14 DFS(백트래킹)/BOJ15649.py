@@ -1,5 +1,30 @@
 ## N과 M (1) ##
 
+def makingTree(i, n, m):
+    """
+    :param i: root의 수
+    :param n: 자연수의 범위
+    :param m: 트리의 깊이 (여기서는 원소의 개수와 같음)
+    :return: 조건의 맞는 tree의 list
+    """
+    treeVisit = []
+    treeNum = [[]] * m
+
+    for i in range(m):  # m:깊이
+        if i == 0:
+            treeVisit.append([0])
+            treeNum[i].append(i)
+        else:
+            treeVisit.append([0] * (n - i))
+            for j in range(n):
+                if j not in treeNum[i - 1]:
+                    treeNum[i].append(j)
+
+    # 중간 확인용 출력
+    for i in range(m):
+        print(treeNum[i])
+
+
 def dfs(m, n, nodes):
     '''
     :param nodes: 노드들
@@ -22,9 +47,8 @@ def dfs(m, n, nodes):
 
 
 n, m = map(int, input().split())
-nodes = [[0] * n] * n
+
 
 for i in range(n):
-    dfs(i, m, nodes)
-
+    makingTree(i, n, m)
 
