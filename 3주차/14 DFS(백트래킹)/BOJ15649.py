@@ -11,7 +11,7 @@ def makingGraph(n, m):
     인덱스 0은 무시합니다.
     '''
     graph = [[i for i in range(n + 1)] for i in range(m + 1)]
-    graphVisitTime = [[None, None] for i in range(n + 1)]
+    graphVisitTime = [[0, 0] for i in range(n + 1)]
     for i in range(len(graph)):
         graph[i].remove(i)
 
@@ -29,7 +29,7 @@ def dfs(g, v):
     :return: None
     '''
     for i in range(len(v)):
-        if i == 0 or not i[0]:
+        if i == 0 or v[i][0] == 0:
             dfsVisit(g[i], v, i)
 
 
@@ -53,10 +53,10 @@ def dfsVisit(g, v, i):
     time += 1
     v[i][0] = time
     for b in g:  # 간선 (a, b)를 탐색한다
-        if v[i][0] == None:
+        print(v[i][0])
+        if v[i][0] == 0:
             pi = i
             dfsVisit(g, v, b)
-        print(i, b)
     time += 1
     v[i][1] = time
     if v[i][0] - v[i][1] >= m:
