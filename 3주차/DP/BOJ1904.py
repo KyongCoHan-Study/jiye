@@ -1,10 +1,16 @@
 ## 01타일 ##
 
 n = int(input())
-nums = {i: None for i in range(n+1)}
-for i in range(3):
+nums = [0] * 4
+for i in range(1, 4):
     nums[i] = i
-for i in range(3, n+1):
-    nums[i] = nums[i-1] + nums[i-2]
 
-print(nums[n] % 15746)
+if n in range(4):
+    print(nums[n] - 1)
+else:
+    for i in range(3, n+1):
+        nums[0] = nums[1]
+        nums[1] = nums[2]
+        nums[2] = nums[0] + nums[1]
+
+print(nums[2] % 15746)
