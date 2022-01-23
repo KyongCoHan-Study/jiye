@@ -2,14 +2,11 @@
 
 
 def dfs(L):
-
     if L == m:
         for j in range(m):
             print(res[j], end=' ')
         print()
         return
-
-
     else:
         for i in range(1, n+1):
             res[L] = i
