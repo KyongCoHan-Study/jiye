@@ -1,8 +1,8 @@
 ## 배수와 약수 ##
 '''
-난이도 : 하
+난이도 : 브3
+체감 난이도 : 하
 '''
-num = [None, None]
 
 while True:
     num = list(map(int, input().split()))
